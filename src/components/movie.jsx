@@ -1,7 +1,8 @@
 import React from 'react';
+import Like from './like';
 
 const Movie = (props) => {
-  const { moviesProps, handleDeleteProps } = props;
+  const { moviesProps, handleDeleteProps, handleLikeProps } = props;
   return (
     <table className="table">
       <thead>
@@ -9,6 +10,7 @@ const Movie = (props) => {
           <th scope="col">title</th>
           <th scope="col">genre</th>
           <th scope="col">numberInStock</th>
+          <th scope="col">Like</th>
           <th scope="col">dailyRentalRate</th>
           <th scope="col"></th>
         </tr>
@@ -19,6 +21,7 @@ const Movie = (props) => {
             <th scope="row">{m.title}</th>
             <td>{m.genre.name}</td>
             <td>{m.numberInStock}</td>
+            <td><Like handleLikeProps={handleLikeProps} movieProps={m} /></td>
             <td>{m.dailyRentalRate}</td>
             <td>
               <button
