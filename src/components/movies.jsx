@@ -7,6 +7,7 @@ class Movies extends Component {
     super(props);
     this.state = {
       movies: getMovies(),
+      like: true,
     };
   }
 
@@ -17,11 +18,24 @@ class Movies extends Component {
     });
   };
 
+  handleLike = (movie_id, movie) => {
+    const movies = [...this.state.movies];
+    const findLike = movies.find((m) => m._id === movie_id);
+    const index = movies.indexOf(findLike);
+    movies[index] = { ...movie };
+    movies[index].like = !movies[index].like;
+    this.setState({ 
+      ...this.state,
+      movies: movies,
+    });
+  };
+
   render() {
     return (
       <Movie
         moviesProps={this.state.movies}
         handleDeleteProps={this.handleDelete}
+        handleLikeProps={this.handleLike}
       />
     );
   }
