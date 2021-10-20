@@ -9,7 +9,7 @@ const Like = (props) => {
     <div>
       <FontAwesomeIcon
         icon={movieProps.like ? heart : faHeart}
-        onClick={() => handleLikeProps(movieProps._id, movieProps)}
+        onClick={() => handleLikeProps(movieProps._id)}
         style={{cursor: 'pointer'}}
       />
     </div>
