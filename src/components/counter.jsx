@@ -11,7 +11,7 @@ const Counter = (props) => {
         }
         style={{ fontSize: 20 }}
       >
-        {counter.value == 0 ? 'Zero' : counter.value}
+        {counter.value === 0 ? 'Zero' : counter.value}
       </span>
       <button
         className="btn btn-secondary col-3 mx-2"
