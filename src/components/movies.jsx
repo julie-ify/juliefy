@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
 import Movie from './movie';
+import Paginate from './paginate';
+import pagination from './utils/pagination';
 
 class Movies extends Component {
   constructor(props) {
@@ -8,6 +10,8 @@ class Movies extends Component {
     this.state = {
       movies: getMovies(),
       like: true,
+      pageSize: 4,
+      currentPage: 1,
     };
   }
 
@@ -18,25 +22,40 @@ class Movies extends Component {
     });
   };
 
-  handleLike = (movie_id, movie) => {
+  handleLike = (movie_id) => {
     const movies = [...this.state.movies];
     const findLike = movies.find((m) => m._id === movie_id);
     const index = movies.indexOf(findLike);
-    movies[index] = { ...movie };
     movies[index].like = !movies[index].like;
-    this.setState({ 
-      ...this.state,
+    this.setState({
       movies: movies,
     });
   };
 
+  handlePageChange = (page) => {
+    this.setState({
+      currentPage: page,
+    });
+  };
+
   render() {
+    if (this.state.movies.length === 0) return <h3>There are no movies!</h3>;
+
+    const newMovies = pagination(
+      this.state.movies,
+      this.state.currentPage,
+      this.state.pageSize
+    );
+
     return (
-      <Movie
-        moviesProps={this.state.movies}
-        handleDeleteProps={this.handleDelete}
-        handleLikeProps={this.handleLike}
-      />
+      <React.Fragment>
+        <Movie
+          moviesProps={newMovies}
+          handleDeleteProps={this.handleDelete}
+          handleLikeProps={this.handleLike}
+        />
+        <Paginate state={this.state} handlePageChange={this.handlePageChange} />
+      </React.Fragment>
     );
   }
 }
