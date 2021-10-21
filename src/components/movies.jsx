@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
 import Movie from './movie';
 import Paginate from './paginate';
+import pagination from './utils/pagination';
 
 class Movies extends Component {
   constructor(props) {
@@ -39,10 +40,17 @@ class Movies extends Component {
 
   render() {
     if (this.state.movies.length === 0) return <h3>There are no movies!</h3>;
+
+    const newMovies = pagination(
+      this.state.movies,
+      this.state.currentPage,
+      this.state.pageSize
+    );
+
     return (
       <React.Fragment>
         <Movie
-          moviesProps={this.state.movies}
+          moviesProps={newMovies}
           handleDeleteProps={this.handleDelete}
           handleLikeProps={this.handleLike}
         />

@@ -3,7 +3,6 @@ import lodash from 'lodash';
 
 const Paginate = (props) => {
   const { state, handlePageChange} = props;
-  console.log(state.currentPage)
   const pageNumber = Math.ceil(state.movies.length / state.pageSize);
   const pageNumberArr = lodash.range(1, pageNumber + 1);
 
